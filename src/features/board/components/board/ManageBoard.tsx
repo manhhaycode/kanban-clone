@@ -34,6 +34,7 @@ export default function ManageBoard() {
                                 : sourceBoard;
 
                         const [removed] = sourceBoard!.tasks.splice(source.index, 1);
+                        if (!removed) return;
                         destinationBoard!.tasks.splice(destination.index, 0, removed);
                         setBoards(newBoards);
                     }

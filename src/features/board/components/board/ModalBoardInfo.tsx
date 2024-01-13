@@ -4,6 +4,7 @@ import Modal from '@/components/Modal';
 import Input from '@/components/common/Input';
 import { useBoardStoreLocalStorage } from '@/stores/componentStore';
 import toast from 'react-hot-toast';
+import { v4 as uuid } from 'uuid';
 
 export default function ModalBoardInfo({ board, state }: { board: Board | null; state: IDisclosure }) {
     const { addBoard, updateBoard } = useBoardStoreLocalStorage();
@@ -27,7 +28,7 @@ export default function ModalBoardInfo({ board, state }: { board: Board | null; 
                             });
                         } else {
                             addBoard({
-                                id: Math.random().toString(36),
+                                id: uuid(),
                                 title: data.get('title') as string,
                                 tasks: [],
                             });

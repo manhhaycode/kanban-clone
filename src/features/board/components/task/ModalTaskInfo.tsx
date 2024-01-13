@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 import { BsTrash } from 'react-icons/bs';
 import { TwitterPicker } from 'react-color';
 import { twMerge } from 'tailwind-merge';
-
+import { v4 as uuid } from 'uuid';
 const BadgeForm = ({
     badge,
     index,
@@ -61,13 +61,11 @@ const BadgeForm = ({
 
 export default function ModalTaskInfo({ task, board, state }: { task: Task | null; state: IDisclosure; board: Board }) {
     const { updateBoard } = useBoardStoreLocalStorage();
-    const [badges, setBadges] = useState<Badge[]>(
-        task ? task.badges : [{ id: Math.random().toString(36), title: '', color: '' }],
-    );
+    const [badges, setBadges] = useState<Badge[]>(task ? task.badges : [{ id: uuid(), title: '', color: '' }]);
 
     useEffect(() => {
         if (state.isOpen) {
-            setBadges(task ? task.badges : [{ id: Math.random().toString(36), title: '', color: '' }]);
+            setBadges(task ? task.badges : [{ id: uuid(), title: '', color: '' }]);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [state.isOpen]);
@@ -76,7 +74,7 @@ export default function ModalTaskInfo({ task, board, state }: { task: Task | nul
         <Modal
             onTransitionEnd={() => {
                 if (!state.isOpen) {
-                    setBadges([{ id: Math.random().toString(36), title: '', color: '' }]);
+                    setBadges([{ id: uuid(), title: '', color: '' }]);
                 }
             }}
             state={state}
@@ -121,7 +119,7 @@ export default function ModalTaskInfo({ task, board, state }: { task: Task | nul
                                     tasks: [
                                         ...board.tasks,
                                         {
-                                            id: Math.random().toString(36),
+                                            id: uuid(),
                                             title: data.get('title') as string,
                                             description: 'New task description',
                                             badges: badges,
@@ -170,7 +168,7 @@ export default function ModalTaskInfo({ task, board, state }: { task: Task | nul
                             <button
                                 type="button"
                                 onClick={() => {
-                                    setBadges([...badges, { id: Math.random().toString(36), title: '', color: '' }]);
+                                    setBadges([...badges, { id: uuid(), title: '', color: '' }]);
                                 }}
                                 className="text-blue-500 hover:text-blue-600"
                             >
